@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 
 // Rota pública de login
-Route::post('/login', [AuthController::class, 'login']);
+Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
 
 // Rotas protegidas
 Route::middleware('auth:sanctum')->group(function () {

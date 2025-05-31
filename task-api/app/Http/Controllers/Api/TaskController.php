@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +12,8 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Task::class);
+
         $query = Auth::user()->tasks();
 
         if ($request->has('status')) {
@@ -35,10 +37,12 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        $request->user()->can('update', $task);
+        $this->authorize('update', $task);
 
         $validated = $request->validate([
-            'status' => ['required', Rule::in(['pending', 'in_progress', 'completed'])],
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'status' => ['nullable', Rule::in(['pending', 'in_progress', 'completed'])],
         ]);
 
         $task->update($validated);
@@ -48,8 +52,10 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
+
         $task->delete();
 
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Task deleted successfully'], 204);
     }
 }

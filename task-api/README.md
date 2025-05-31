@@ -1,61 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Uma API RESTful para gerenciamento de tarefas construída com Laravel 12.
 
-## About Laravel
+## 🚀 Tecnologias
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este projeto utiliza as seguintes tecnologias:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8.2+
+- Laravel 12.0
+- Laravel Tinker 2.10.1
+- SQLite/MySQL/PostgreSQL (banco de dados configurável)
+- Swagger/OpenAPI para documentação
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📋 Pré-requisitos
 
-## Learning Laravel
+Para rodar este projeto, você precisa ter instalado:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.2 ou superior
+- Composer
+- Banco de dados de sua preferência (SQLite, MySQL ou PostgreSQL)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🔧 Instalação
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone o repositório:
+```bash
+git clone [url-do-repositorio]
+cd task-api
+```
 
-## Laravel Sponsors
+2. Instale as dependências:
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. Configure o ambiente:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-### Premium Partners
+4. Configure seu banco de dados no arquivo `.env`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+5. Execute as migrações:
+```bash
+php artisan migrate --seed
+```
 
-## Contributing
+## 🚀 Executando o projeto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Para desenvolvimento, você pode usar o comando:
 
-## Code of Conduct
+```bash
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📖 Documentação da API (Swagger)
 
-## Security Vulnerabilities
+A API é totalmente documentada usando o padrão OpenAPI/Swagger. A documentação está disponível em dois formatos:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Interface Swagger UI
+Acesse a documentação interativa em:
+```
+http://localhost:8000/documentation
+```
 
-## License
+### Arquivo JSON
+O arquivo JSON da documentação está disponível em:
+```
+http://localhost:8000/docs
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Recursos Documentados
+
+A documentação inclui:
+
+- Autenticação
+  - Login (POST /api/login)
+  - Logout (POST /api/logout)
+
+- Gerenciamento de Tarefas
+  - Listar tarefas (GET /api/tasks)
+  - Criar tarefa (POST /api/tasks)
+  - Atualizar tarefa (PUT /api/tasks/{task_id})
+  - Excluir tarefa (DELETE /api/tasks/{task_id})
+
+Para cada endpoint, você encontrará:
+- Descrição detalhada
+- Parâmetros necessários
+- Exemplos de requisição e resposta
+- Códigos de status HTTP
+- Esquemas de dados
+- Requisitos de autenticação
+
+### Atualizando a Documentação
+
+A documentação é mantida em um arquivo JSON em:
+```
+storage/api-docs/api-docs.json
+```
+
+## 🧪 Testes
+
+O projeto inclui testes automatizados para garantir o funcionamento correto das policies e validações.
+
+### Executando os Testes
+
+Para executar todos os testes:
+```bash
+php artisan test
+```
+
+Para executar testes específicos:
+```bash
+# Testes de Policies
+php artisan test tests/Unit/Policies/TaskPolicyTest.php
+
+# Testes de Validação do Controller
+php artisan test tests/Unit/Controllers/TaskControllerValidationTest.php
+```
+
+### Cobertura de Testes
+
+#### Testes de Policy (TaskPolicyTest)
+- ✓ Verifica se qualquer usuário autenticado pode ver tasks
+- ✓ Verifica se o proprietário pode ver sua task
+- ✓ Verifica se um não proprietário não pode ver a task
+- ✓ Verifica se usuários autenticados podem criar tasks
+- ✓ Verifica se o proprietário pode atualizar sua task
+- ✓ Verifica se um não proprietário não pode atualizar a task
+- ✓ Verifica se o proprietário pode deletar sua task
+- ✓ Verifica se um não proprietário não pode deletar a task
+
+#### Testes de Validação (TaskControllerValidationTest)
+- ✓ Valida título obrigatório na criação
+- ✓ Valida que título deve ser string
+- ✓ Valida tamanho máximo do título
+- ✓ Permite descrição opcional
+- ✓ Valida título quando presente na atualização
+- ✓ Valida descrição quando presente na atualização
+- ✓ Valida status quando presente na atualização
+- ✓ Aceita todos os status válidos (pending, in_progress, completed)
+
+### Banco de Dados de Teste
+
+Os testes utilizam SQLite em memória para maior velocidade. A configuração está no arquivo `phpunit.xml`.
+
+### Factories
+
+O projeto utiliza factories para criar dados de teste:
+
+- UserFactory: Cria usuários para teste
+- TaskFactory: Cria tasks com dados aleatórios
+
+## 📦 Estrutura do Projeto
+
+- `/app` - Código principal da aplicação
+  - `/Http/Controllers` - Controladores da API
+  - `/Models` - Modelos do Eloquent
+  - `/Policies` - Políticas de autorização
+- `/tests` - Testes automatizados
+  - `/Unit/Policies` - Testes de políticas
+  - `/Unit/Controllers` - Testes de validação
+- `/database`
+  - `/factories` - Factories para testes
+  - `/migrations` - Estrutura do banco de dados
+- `/storage/api-docs` - Documentação OpenAPI/Swagger
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para mais detalhes.
